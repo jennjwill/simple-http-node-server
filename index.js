@@ -4,20 +4,19 @@ const fs = require("fs");
 
 const requestHandler = (request, response) => {
   response.end(`Handling a request on port ${port}`);
+  fs.writeFile("hello-world.txt", "Hello to this great world", "utf8", err => {
+    if (err) throw err;
+
+    console.log("success");
+  });
 };
 
 const server = http.createServer(requestHandler);
 
 server.listen(port, err => {
   if (err) {
-    return console.log("You have an error: ${err}");
+    return console.log(`You have an error: ${err}`);
   }
 
-  console.log("server is listening on ${port}");
-});
-
-fs.writeFile("hello-world.txt", "Hello to this great world", "utf8", err => {
-  if (err) throw err;
-
-  console.log("success");
+  console.log(`server is listening on ${port}`);
 });
